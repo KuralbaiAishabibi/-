@@ -194,35 +194,41 @@ nav a:hover {
       <div class="skill">
         <span>HTML</span>
         <div class="skill-bar">
-          <div class="skill-level" style="width: 70%;"></div>
+          <div class="skill-level" data-width="70"></div>
         </div>
       </div>
     
       <div class="skill">
         <span>CSS</span>
         <div class="skill-bar">
-          <div class="skill-level" style="width: 70%;"></div>
+          <div class="skill-level" data-width="70"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <span>Java Script</span>
+        <div class="skill-bar">
+          <div class="skill-level" data-width="40"></div>
         </div>
       </div>
     
       <div class="skill">
         <span>Русский</span>
         <div class="skill-bar">
-          <div class="skill-level" style="width: 100%;"></div>
+          <div class="skill-level" data-width="100"></div>
         </div>
       </div>
     
       <div class="skill">
         <span>Английский (IELTS 5.5)</span>
         <div class="skill-bar">
-          <div class="skill-level" style="width: 62%;"></div>
+          <div class="skill-level" data-width="65"></div>
         </div>
       </div>
     
       <div class="skill">
         <span>Казахский</span>
         <div class="skill-bar">
-          <div class="skill-level" style="width: 100%;"></div>
+          <div class="skill-level" data-width="100"></div>
         </div>
       </div>
     </div>
@@ -248,6 +254,43 @@ nav a:hover {
     </div>
 
   </footer>
+  <script>
+    const animateSkill = (el, target) => {
+      let width = 0;
+      const interval = setInterval(() => {
+        if (width >= target) {
+          clearInterval(interval);
+        } else {
+          width++;
+          el.style.width = width + '%';
+        }
+      }, 10); // скорость — можно менять (меньше число = быстрее)
+    };
+  
+    const animateSkills = () => {
+      const skillBars = document.querySelectorAll('.skill-level');
+      skillBars.forEach(bar => {
+        const target = parseInt(bar.getAttribute('data-width'));
+        animateSkill(bar, target);
+      });
+    };
+  
+    const isInViewport = (element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    };
+  
+    let animated = false;
+  
+    window.addEventListener('scroll', () => {
+      const skillsSection = document.querySelector('.skills');
+      if (isInViewport(skillsSection) && !animated) {
+        animateSkills();
+        animated = true;
+      }
+    });
+  </script>
+  
   
 </body>
 
